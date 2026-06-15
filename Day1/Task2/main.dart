@@ -1,4 +1,3 @@
-// main.dart - Simple Grade Calculator UI for the internship task
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +31,6 @@ class GradeCalculatorScreen extends StatefulWidget {
 class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers for three grade fields (minimum requirement)
   final TextEditingController _grade1Controller = TextEditingController();
   final TextEditingController _grade2Controller = TextEditingController();
   final TextEditingController _grade3Controller = TextEditingController();
@@ -40,7 +38,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
   double? _average;
   String _status = '';
 
-  // Calculate average and determine status
   void _calculateAverage() {
     if (_formKey.currentState!.validate()) {
       double g1 = double.parse(_grade1Controller.text);
@@ -51,12 +48,11 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
 
       setState(() {
         _average = double.parse(avg.toStringAsFixed(2));
-        _status = _average! >= 5.0 ? 'Kalon' : 'Duhet përmirësim'; // Assuming 5.0 is passing threshold (common in many systems)
+        _status = _average! >= 5.0 ? 'Kalon' : 'Duhet përmirësim';
       });
     }
   }
 
-  // Clear all fields
   void _clearFields() {
     _grade1Controller.clear();
     _grade2Controller.clear();
@@ -98,7 +94,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Grade 1
               TextFormField(
                 controller: _grade1Controller,
                 keyboardType: TextInputType.number,
@@ -123,7 +118,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Grade 2
               TextFormField(
                 controller: _grade2Controller,
                 keyboardType: TextInputType.number,
@@ -148,7 +142,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
               ),
               const SizedBox(height: 16),
 
-              // Grade 3
               TextFormField(
                 controller: _grade3Controller,
                 keyboardType: TextInputType.number,
@@ -173,7 +166,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
               ),
               const SizedBox(height: 30),
 
-              // Calculate Button
               ElevatedButton(
                 onPressed: _calculateAverage,
                 style: ElevatedButton.styleFrom(
@@ -189,7 +181,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
 
               const SizedBox(height: 16),
 
-              // Clear Button
               OutlinedButton(
                 onPressed: _clearFields,
                 style: OutlinedButton.styleFrom(
@@ -200,7 +191,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
 
               const SizedBox(height: 40),
 
-              // Results
               if (_average != null) ...[
                 Card(
                   elevation: 4,
@@ -237,7 +227,6 @@ class _GradeCalculatorScreenState extends State<GradeCalculatorScreen> {
 
               const SizedBox(height: 40),
 
-              // Info
               const Text(
                 'Shënim: Nota kaluese është 5.0+',
                 textAlign: TextAlign.center,
