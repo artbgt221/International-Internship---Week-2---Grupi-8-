@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulatori i Notave</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f2f4fa;
+      color: #202124;
+    }
+    header {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #3f51b5;
+      color: white;
+      font-size: 21px;
+      font-weight: 600;
+      box-shadow: 0 2px 5px #0003;
+    }
+    main {
+      min-height: calc(100vh - 64px);
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+    }
+    .card {
+      width: min(460px, 100%);
+      background: white;
+      padding: 28px 26px;
+      border-radius: 14px;
+      box-shadow: 0 5px 18px #1f2c5d26;
+    }
+    .calculator-icon {
+      text-align: center;
+      color: #3f51b5;
+      font-size: 58px;
+      line-height: 1;
+    }
+    h1 { margin: 10px 0 5px; text-align: center; font-size: 27px; }
+    .help { margin: 0 0 24px; text-align: center; color: #777; }
+    label { display: block; color: #555; font-size: 13px; margin: 0 0 6px 4px; }
+    input {
+      width: 100%;
+      padding: 14px 13px;
+      border: 1px solid #777;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 14px;
+      outline-color: #3f51b5;
+    }
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 22px;
+      padding: 14px;
+      margin-top: 5px;
+      background: #3f51b5;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 22px;
+      padding: 17px;
+      text-align: center;
+      border: 1px solid #777;
+      border-radius: 12px;
+      background: #7771;
+    }
+    .result.pass { border-color: #2e7d32; background: #2e7d3218; }
+    .result.fail { border-color: #c62828; background: #c6282818; }
+    .average { font-size: 33px; font-weight: 700; margin: 4px 0; }
+    .status { color: #777; font-size: 18px; font-weight: 700; }
+    .pass .status { color: #2e7d32; }
+    .fail .status { color: #c62828; }
+    .snack {
+      display: none;
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      width: min(420px, calc(100% - 32px));
+      padding: 15px 18px;
+      border-radius: 5px;
+      background: #c62828;
+      color: white;
+      box-shadow: 0 3px 10px #0004;
+    }
+  </style>
+</head>
+<body>
+  <header>Kalkulatori i Notave</header>
+  <main>
+    <section class="card">
+      <div class="calculator-icon">▦</div>
+      <h1>Llogarit mesataren</h1>
+      <p class="help">Shkruani tri nota nga 1 deri ne 5.</p>
+      <label for="n1">Nota e pare</label>
+      <input id="n1" inputmode="decimal" placeholder="1 - 5">
+      <label for="n2">Nota e dyte</label>
+      <input id="n2" inputmode="decimal" placeholder="1 - 5">
+      <label for="n3">Nota e trete</label>
+      <input id="n3" inputmode="decimal" placeholder="1 - 5">
+      <button id="calculate">Llogarit</button>
+      <div class="result" id="result">
+        <div>Mesatarja</div>
+        <div class="average" id="average">--</div>
+        <div class="status" id="status">Vendosni notat</div>
+      </div>
+    </section>
+  </main>
+  <div class="snack" id="snack"></div>
+  <script>
+    const inputs = ['n1', 'n2', 'n3'].map(id => document.getElementById(id));
+    const result = document.getElementById('result');
+    const average = document.getElementById('average');
+    const status = document.getElementById('status');
+    const snack = document.getElementById('snack');
+
+    function error(message) {
+      snack.textContent = message;
+      snack.style.display = 'block';
+      setTimeout(() => snack.style.display = 'none', 3500);
+    }
+
+    document.getElementById('calculate').addEventListener('click', () => {
+      if (inputs.some(input => input.value.trim() === '')) {
+        error('Ju lutem plotesoni te gjitha fushat.');
+        return;
+      }
+      const grades = inputs.map(input => Number(input.value));
+      if (grades.some(grade => Number.isNaN(grade))) {
+        error('Vlerat duhet te jene numra.');
+        return;
+      }
+      if (grades.some(grade => grade < 1 || grade > 5)) {
+        error('Notat duhet te jene nga 1 deri ne 5.');
+        return;
+      }
+      const value = grades.reduce((sum, grade) => sum + grade, 0) / 3;
+      const passed = value >= 2;
+      average.textContent = value.toFixed(2);
+      status.textContent = passed ? 'Kalon' : 'Duhet permiresim';
+      result.className = passed ? 'result pass' : 'result fail';
+    });
+  </script>
+</body>
+</html>
