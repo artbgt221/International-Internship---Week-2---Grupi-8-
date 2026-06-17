@@ -1,0 +1,11 @@
+Submission notes
+
+Suggested commit message:
+day2 registration form
+
+Git was not available in this environment, so the files are prepared in a complete submission folder.
+If Git is available on the submission machine, run:
+
+git init
+git add .
+git commit -m "day2 registration form"

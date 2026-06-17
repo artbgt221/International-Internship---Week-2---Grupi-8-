@@ -1,0 +1,12 @@
+Internal Internship - Day 2 - Task 2
+Registration Form
+
+Requirements covered:
+- Minimum fields: name, email, password, role/status.
+- Email validation and minimum password length validation.
+- Error messages displayed without breaking layout.
+- Success submit shows a summary dialog.
+- App runs as a static site without dependencies.
+- Code is organized across HTML, CSS, and JavaScript.
+- Responsive UI for mobile and desktop.
+- Short README with screenshot.

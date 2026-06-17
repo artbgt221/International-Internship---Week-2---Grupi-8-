@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form - Day 2 Task 2</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="registration-panel" aria-labelledby="page-title">
+      <div class="intro">
+        <p class="eyebrow">Internal Internship - Day 2</p>
+        <h1 id="page-title">Registration Form</h1>
+        <p class="description">Plotësoni të dhënat për të krijuar një regjistrim të ri.</p>
+      </div>
+
+      <form id="registrationForm" class="form" novalidate>
+        <div class="field">
+          <label for="fullName">Emri</label>
+          <input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="p.sh. Rion Hoxha">
+          <p class="error-message" id="fullNameError" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="emri@example.com">
+          <p class="error-message" id="emailError" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="new-password" placeholder="Minimumi 8 karaktere">
+          <p class="helper-text">Përdor të paktën 8 karaktere.</p>
+          <p class="error-message" id="passwordError" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="role">Role / Status</label>
+          <select id="role" name="role">
+            <option value="">Zgjidh statusin</option>
+            <option value="Student">Student</option>
+            <option value="Intern">Intern</option>
+            <option value="Mentor">Mentor</option>
+            <option value="Staff">Staff</option>
+          </select>
+          <p class="error-message" id="roleError" aria-live="polite"></p>
+        </div>
+
+        <button class="submit-button" type="submit">Regjistrohu</button>
+      </form>
+    </section>
+
+    <dialog id="summaryDialog" class="summary-dialog">
+      <div class="summary-content">
+        <p class="success-tag">Regjistrimi u krye me sukses</p>
+        <h2>Përmbledhje</h2>
+        <dl class="summary-list">
+          <div>
+            <dt>Emri</dt>
+            <dd id="summaryName"></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd id="summaryEmail"></dd>
+          </div>
+          <div>
+            <dt>Role / Status</dt>
+            <dd id="summaryRole"></dd>
+          </div>
+        </dl>
+        <button id="closeSummary" class="close-button" type="button">Mbyll</button>
+      </div>
+    </dialog>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
