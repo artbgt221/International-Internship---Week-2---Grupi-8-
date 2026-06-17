@@ -59,71 +59,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Container(
               width: 350,
               padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.blueGrey,
-                    child: Icon(
-                      Icons.person,
-                      size: 60,
-                      color: Colors.white,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.blueGrey,
+                      child: Icon(
+                        Icons.person,
+                        size: 60,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  const Text(
-                    'Bajram Salihi',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Bajram Salihi',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  const Text(
-                    'Flutter Intern',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey,
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Flutter Intern',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  const Text(
-                    'High school student focused on technology, business and mobile app development.',
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.email),
-                      SizedBox(width: 8),
-                      Text('bajram@example.com'),
-                    ],
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Text(
-                    buttonText,
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  ElevatedButton(
-                    onPressed: showMessage,
-                    child: const Text('Contact Me'),
-                  ),
-                ],
+                    const SizedBox(height: 16),
+                    const Text(
+                      'High school student focused on technology, business and mobile app development.',
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.email),
+                        SizedBox(width: 8),
+                        Text('bajram@example.com'),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      buttonText,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: showMessage,
+                      child: const Text('Contact Me'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
