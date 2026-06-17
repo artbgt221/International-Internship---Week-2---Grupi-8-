@@ -114,40 +114,42 @@ class _QuizScreenState extends State<QuizScreen> {
           constraints: const BoxConstraints(maxWidth: 600),
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'Question ${currentQuestionIndex + 1}/${questions.length}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-
-                const SizedBox(height: 24),
-
-                Text(
-                  question.questionText,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Question ${currentQuestionIndex + 1}/${questions.length}',
+                    style: const TextStyle(fontSize: 20),
                   ),
-                ),
 
-                const SizedBox(height: 32),
+                  const SizedBox(height: 24),
 
-                ...List.generate(
-                  question.options.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: ElevatedButton(
-                      onPressed: () => answerQuestion(index),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(question.options[index]),
+                  Text(
+                    question.questionText,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  ...List.generate(
+                    question.options.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: ElevatedButton(
+                        onPressed: () => answerQuestion(index),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(question.options[index]),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -181,7 +183,7 @@ class ResultScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Your Score',
                 style: TextStyle(
                   fontSize: 30,
