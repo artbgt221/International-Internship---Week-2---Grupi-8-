@@ -1,0 +1,16 @@
+Internal Internship - Day 3 - Task 2
+Task/Expense Tracker
+
+Requirements covered:
+- Model class for the item: TrackerItem.
+- Add a new item through a form/dialog.
+- Delete item.
+- Mark item as done/active.
+- Display total/count values.
+- Use SnackBar for main actions.
+- Organized code and clear function/variable names.
+- README with screenshot.
+- Responsive UI for mobile and desktop.
+
+Suggested commit:
+day3 tracker state

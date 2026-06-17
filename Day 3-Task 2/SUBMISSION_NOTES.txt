@@ -1,0 +1,14 @@
+Submission notes
+
+Suggested commit message:
+day3 tracker state
+
+Git is not available in this environment, so the project files are prepared in a complete submission folder.
+If Git is available on the submission machine, run:
+
+git init
+git add .
+git commit -m "day3 tracker state"
+
+Flutter/Dart are not installed in this environment, so local execution could not be performed here.
+Run the project in Flutter, FlutLab, Replit, or another Flutter-ready editor.
