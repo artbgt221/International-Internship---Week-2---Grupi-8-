@@ -1,0 +1,19 @@
+Internal Internship - Day 3 - Task 1
+Multi-screen Quiz App
+
+Built based on the learning material:
+- Uses state management with setState.
+- Uses a model class to organize data.
+- Uses a dynamic list of quiz questions.
+- Uses Navigator.push and Navigator.pop for screen navigation.
+- Uses SnackBar feedback.
+
+Requirements covered:
+- At least 5 questions.
+- 4 options for each question.
+- State for score and current question.
+- Final result screen with restart button.
+- Navigator used to move to the result screen.
+- Organized code and clear variable/function names.
+- README with screenshot.
+- Responsive UI for mobile and desktop.
