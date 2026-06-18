@@ -1,57 +1,45 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const TrackerApp());
+  runApp(const SimpleTrackerApp());
 }
 
 class TrackerItem {
   final String title;
-  final double amount;
-  bool paid;
+  bool done;
 
   TrackerItem({
     required this.title,
-    required this.amount,
-    this.paid = false,
+    this.done = false,
   });
 }
 
-class TrackerApp extends StatefulWidget {
-  const TrackerApp({super.key});
+class SimpleTrackerApp extends StatefulWidget {
+  const SimpleTrackerApp({super.key});
 
   @override
-  State<TrackerApp> createState() => _TrackerAppState();
+  State<SimpleTrackerApp> createState() => _SimpleTrackerAppState();
 }
 
-class _TrackerAppState extends State<TrackerApp> {
+class _SimpleTrackerAppState extends State<SimpleTrackerApp> {
   final GlobalKey<ScaffoldMessengerState> messengerKey =
       GlobalKey<ScaffoldMessengerState>();
 
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController amountController = TextEditingController();
+  final TextEditingController itemController = TextEditingController();
 
   final List<TrackerItem> items = [
-    TrackerItem(title: 'Lunch', amount: 5.50, paid: true),
-    TrackerItem(title: 'Transport', amount: 2.00, paid: false),
-    TrackerItem(title: 'Notebook', amount: 3.20, paid: false),
+    TrackerItem(title: 'Finish Flutter task'),
+    TrackerItem(title: 'Upload screenshot'),
   ];
 
   String errorMessage = '';
 
-  double get totalAmount {
-    double total = 0;
-    for (var item in items) {
-      total += item.amount;
-    }
-    return total;
+  int get doneCount {
+    return items.where((item) => item.done).length;
   }
 
-  int get paidCount {
-    return items.where((item) => item.paid).length;
-  }
-
-  int get unpaidCount {
-    return items.where((item) => !item.paid).length;
+  int get activeCount {
+    return items.where((item) => !item.done).length;
   }
 
   void showMessage(String message) {
@@ -63,50 +51,36 @@ class _TrackerAppState extends State<TrackerApp> {
   }
 
   void addItem() {
-    String title = titleController.text.trim();
-    String amountText = amountController.text.trim();
+    String title = itemController.text.trim();
 
-    if (title.isEmpty || amountText.isEmpty) {
+    if (title.isEmpty) {
       setState(() {
-        errorMessage = 'Please fill all fields.';
-      });
-      return;
-    }
-
-    double? amount = double.tryParse(amountText);
-
-    if (amount == null) {
-      setState(() {
-        errorMessage = 'Please enter a valid number.';
+        errorMessage = 'Please enter an item.';
       });
       return;
     }
 
     setState(() {
       items.add(
-        TrackerItem(
-          title: title,
-          amount: amount,
-        ),
+        TrackerItem(title: title),
       );
 
-      titleController.clear();
-      amountController.clear();
+      itemController.clear();
       errorMessage = '';
     });
 
-    showMessage('Item added successfully!');
+    showMessage('Item added!');
   }
 
-  void togglePaid(int index) {
+  void toggleStatus(int index) {
     setState(() {
-      items[index].paid = !items[index].paid;
+      items[index].done = !items[index].done;
     });
 
-    if (items[index].paid) {
-      showMessage('Item marked as paid!');
+    if (items[index].done) {
+      showMessage('Item marked as done!');
     } else {
-      showMessage('Item marked as unpaid!');
+      showMessage('Item marked as active!');
     }
   }
 
@@ -120,8 +94,7 @@ class _TrackerAppState extends State<TrackerApp> {
 
   @override
   void dispose() {
-    titleController.dispose();
-    amountController.dispose();
+    itemController.dispose();
     super.dispose();
   }
 
@@ -129,18 +102,12 @@ class _TrackerAppState extends State<TrackerApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: messengerKey,
-      title: 'Expense Tracker',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
-        ),
-      ),
+      title: 'Task Tracker',
       home: Scaffold(
         backgroundColor: const Color(0xFFECEFF1),
         appBar: AppBar(
-          title: const Text('Expense Tracker'),
+          title: const Text('Task Tracker'),
           centerTitle: true,
           backgroundColor: Colors.blue,
         ),
@@ -150,11 +117,11 @@ class _TrackerAppState extends State<TrackerApp> {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Container(
-                  constraints: const BoxConstraints(maxWidth: 700),
+                  constraints: const BoxConstraints(maxWidth: 600),
                   child: Column(
                     children: [
                       Card(
-                        elevation: 8,
+                        elevation: 6,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
                         ),
@@ -163,13 +130,13 @@ class _TrackerAppState extends State<TrackerApp> {
                           child: Column(
                             children: [
                               const Icon(
-                                Icons.account_balance_wallet,
-                                size: 75,
+                                Icons.checklist,
+                                size: 70,
                                 color: Colors.blue,
                               ),
                               const SizedBox(height: 10),
                               const Text(
-                                'Add Expense Item',
+                                'Add New Item',
                                 style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold,
@@ -177,22 +144,14 @@ class _TrackerAppState extends State<TrackerApp> {
                               ),
                               const SizedBox(height: 20),
                               TextField(
-                                controller: titleController,
+                                controller: itemController,
                                 decoration: const InputDecoration(
                                   labelText: 'Item title',
-                                  prefixIcon: Icon(Icons.title),
+                                  border: OutlineInputBorder(),
+                                  prefixIcon: Icon(Icons.edit),
                                 ),
                               ),
-                              const SizedBox(height: 12),
-                              TextField(
-                                controller: amountController,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  labelText: 'Amount',
-                                  prefixIcon: Icon(Icons.euro),
-                                ),
-                              ),
-                              const SizedBox(height: 12),
+                              const SizedBox(height: 10),
                               if (errorMessage.isNotEmpty)
                                 Text(
                                   errorMessage,
@@ -217,7 +176,7 @@ class _TrackerAppState extends State<TrackerApp> {
                       const SizedBox(height: 20),
 
                       Card(
-                        elevation: 5,
+                        elevation: 4,
                         child: Padding(
                           padding: const EdgeInsets.all(18),
                           child: Column(
@@ -229,27 +188,10 @@ class _TrackerAppState extends State<TrackerApp> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 12),
-                              Text(
-                                'Total items: ${items.length}',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                              Text(
-                                'Paid: $paidCount',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                              Text(
-                                'Unpaid: $unpaidCount',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                              Text(
-                                'Total amount: €${totalAmount.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                ),
-                              ),
+                              const SizedBox(height: 10),
+                              Text('Total items: ${items.length}'),
+                              Text('Done: $doneCount'),
+                              Text('Active: $activeCount'),
                             ],
                           ),
                         ),
@@ -258,7 +200,7 @@ class _TrackerAppState extends State<TrackerApp> {
                       const SizedBox(height: 20),
 
                       const Text(
-                        'Expense List',
+                        'Item List',
                         style: TextStyle(
                           fontSize: 26,
                           fontWeight: FontWeight.bold,
@@ -279,42 +221,33 @@ class _TrackerAppState extends State<TrackerApp> {
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
                               leading: Checkbox(
-                                value: item.paid,
+                                value: item.done,
                                 onChanged: (value) {
-                                  togglePaid(index);
+                                  toggleStatus(index);
                                 },
                               ),
                               title: Text(
                                 item.title,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  decoration: item.paid
+                                  decoration: item.done
                                       ? TextDecoration.lineThrough
                                       : TextDecoration.none,
                                 ),
                               ),
                               subtitle: Text(
-                                item.paid ? 'Status: Paid' : 'Status: Unpaid',
+                                item.done
+                                    ? 'Status: Done'
+                                    : 'Status: Active',
                               ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '€${item.amount.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      deleteItem(index);
-                                    },
-                                  ),
-                                ],
+                              trailing: IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  deleteItem(index);
+                                },
                               ),
                             ),
                           );
