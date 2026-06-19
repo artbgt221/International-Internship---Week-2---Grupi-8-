@@ -1,0 +1,26 @@
+Internal Internship - Day 5: Final Project Day
+
+Chosen MVP:
+Task Manager app in Flutter.
+
+Target:
+Mobile, desktop and web.
+
+Three minimum features:
+1. Dynamic task list with active/done state.
+2. Create and edit task form.
+3. Task detail screen with navigation.
+
+Requirements covered:
+- MVP idea selected and defined.
+- Main screen planned and implemented.
+- Form screen planned and implemented.
+- Detail screen planned and implemented.
+- State management with setState.
+- Navigation with Navigator.push and Navigator.pop.
+- Local in-memory data service.
+- README with screenshot and technical reflection.
+- Project structure follows lib/main.dart, models, screens, services.
+
+Suggested commit:
+day5 final task manager

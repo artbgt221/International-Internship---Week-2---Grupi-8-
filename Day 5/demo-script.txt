@@ -1,0 +1,10 @@
+2-3 minute demo script
+
+1. Open the app and show the Task Manager home screen.
+2. Explain the summary cards: Total, Active and Done.
+3. Tap New task and create a task with title, description, priority and due date.
+4. Open a task detail screen and explain the information shown there.
+5. Edit a task and save the changes.
+6. Mark a task as done and show that counts update.
+7. Delete a task and explain that SnackBar feedback appears.
+8. Mention future improvements: local storage, API/D1 backend and hosting.
